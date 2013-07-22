@@ -1,0 +1,26 @@
+<h1>Users#login</h1>
+	<p  align='center' style="color:#FF0000;red"><%=flash[:notice]%></p>
+	<%= form_tag do -%>
+	<table align='center' style="background-color:silver;width:30%;height:300px;">
+			<td align='center'>
+				Login:
+			</td>
+			<td>
+				<%= text_field_tag 'username' %>
+			</td>
+		</tr>
+		<tr>
+			<td align='center'>
+				Password:
+			</td>
+			<td>
+				<%= password_field_tag 'password' %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan='2' align='center'>
+				<%= submit_tag 'Log in' %>
+			</td>
+		</tr>
+	</table>
+	<% end -%>

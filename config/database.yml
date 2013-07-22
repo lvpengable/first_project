@@ -1,0 +1,39 @@
+# SQLite version 3.x
+#   gem 'activerecord-jdbcsqlite3-adapter'
+#
+# Configure Using Gemfile
+# gem 'activerecord-jdbcsqlite3-adapter'
+#
+development:
+  adapter: mysql
+  database: test-first_project_development
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username: root
+  password: 
+  socket: /tmp/myslq.sock
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  adapter: mysql
+  database: test-first_project_test
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/myslq.sock
+
+
+production:
+  adapter: mysql
+  database: test-first_project_production
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  username: root
+  password:
+  socket: /tmp/myslq.sock
+
