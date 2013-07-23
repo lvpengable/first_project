@@ -1,5 +1,7 @@
 FirstProject::Application.routes.draw do
   get "users/login"
+  get "users/index"
+  post "users/login"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

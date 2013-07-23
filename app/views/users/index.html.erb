@@ -1,1 +1,5 @@
+<%if @user.present?%>
 hello,<%=@user.name%>
+<%else%>
+<%=link_to "login",:action => "login"%>
+<%end%>

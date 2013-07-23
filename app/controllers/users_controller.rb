@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     if login
       flash[:notice] = "login successfully"
       @user = User.find_by_name(params[:username])
-      redirect_to :action => 'index'
+      redirect_to :action => 'index',@user => @user
     else
       flash[:notice] = "wrong username or password"
     end    
@@ -13,5 +13,8 @@ class UsersController < ApplicationController
   
   def index
     
+  end
+
+  def mypage
   end
 end
