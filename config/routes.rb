@@ -1,6 +1,7 @@
 FirstProject::Application.routes.draw do
+  get "admin/s_count"
   get "admin/count"
-
+  post "admin/s_count"
   get "users/login"
   get "users/index"
   post "users/login"

@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def checkin
     @user = User.find_by_id(session[:user])
     @user.is_arrive = 1
+    @user.checkin_time = Time.now
     @user.save   
     respond_to do |format|
      format.html { redirect_to :action => 'index' }

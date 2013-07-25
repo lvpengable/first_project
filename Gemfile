@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+gem 'my97-rails'
+
+gem 'will_paginate','~>3.0'
+
 gem 'activerecord-jdbc-adapter', :github => 'jruby/activerecord-jdbc-adapter'
 
 gem 'rails', '3.2.13'

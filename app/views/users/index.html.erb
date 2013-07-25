@@ -1,10 +1,10 @@
 <p style="color:red"><%=flash[:notice]%></p><br/>
 <%if @user.present?%>
 hello,<%=@user.name%>
+<%=button_to_function "Check In","checkin()"%>
 <%else%>
 <%=link_to "login",:action => "login"%>
 <%end%>
-<%=button_to_function "Check In","checkin()"%>
 
 <script type="text/javascript">
 function checkin(){
