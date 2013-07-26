@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  checkin_time: 2013-07-25 21:23:58
+
+two:
+  user_id: 1
+  checkin_time: 2013-07-25 21:23:58

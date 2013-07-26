@@ -1,0 +1,105 @@
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Count</title>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css" />
+<script type="text/javascript">
+$(function() {
+$( "#datepicker" ).datepicker();
+});
+$(function(){
+$("#datepicker2").datepicker();
+});
+</script>
+</head>
+<body>
+<h1>Admin#count</h1>
+<div style="text-align:center;">
+</div>
+<%=form_tag  :action => 's_count' do %>
+<%if @s_s.blank?&&@s_e.blank?%>
+Start: <input type="text" id="datepicker" name="start" />
+End:   <input type="text" id="datepicker2" name="end" />
+<%elsif @s_e.blank?%>
+Start: <input type="text" id="datepicker" name="start" value=<%=@s_s%> />
+End:   <input type="text" id="datepicker2" name="end" />
+<%elsif @s_s.blank?%>
+Start: <input type="text" id="datepicker" name="start" />
+End:   <input type="text" id="datepicker2" name="end" value=<%=@s_e%>/>
+<%else%>
+Start: <input type="text" id="datepicker" name="start" value=<%=@s_s%> />
+End:   <input type="text" id="datepicker2" name="end" value=<%=@s_e%> />
+<%end%>
+<%= submit_tag "query"%>
+<%end%>
+
+<table width="100%" border='1'>
+<%if @user.present?
+@user.each do |user|%>
+<tr><td align="center" width=""><%=user.name%></td>
+<%if @s_s.present? && @s_e.present?%>
+<% @checkins = user.checkins.where(["checkin_time between ? and ?",@s_start,@s_end])
+  @checkins.each do |checkin|%>
+ <%if checkin.checkin_time %>
+  <td align="center" width="" >has checked</td>
+  <td align="center" ><%=checkin.checkin_time.strftime("%Y-%m-%d %H:%M:%S")%></td>
+ <%else%>
+  <td align="center" width="">no check </td>
+  <td align="center">----</td>
+ <%end%>
+
+<%end
+elsif @s_s.present?%>
+<% @checkins = user.checkins.where(["checkin_time >= ?",@s_start]).paginate :page => params[:page],:per_page => 10
+
+  @checkins.each do |checkin|%>
+ <%if checkin.checkin_time %>
+  <td align="center" width="" >has checked</td>
+  <td align="center" ><%=checkin.checkin_time.strftime("%Y-%m-%d %H:%M:%S")%></td>
+ <%else%>
+  <td align="center" width="">no check </td>
+  <td align="center">----</td>
+ <%end%>
+
+<%end
+elsif @s_e.present?%>
+<% @checkins = user.checkins.where(["checkin_time <= ?",@s_end]).paginate :page => params[:page],:per_page => 10
+  @checkins.each do |checkin|%>
+ <%if checkin.checkin_time %>
+  <td align="center" width="" >has checked</td>
+  <td align="center" ><%=checkin.checkin_time.strftime("%Y-%m-%d %H:%M:%S")%></td>
+ <%else%>
+  <td align="center" width="">no check </td>
+  <td align="center">----</td>
+ <%end%>
+
+<%end
+else%>
+<% @checkins = user.checkins.paginate :page => params[:page],:per_page => 10
+  @checkins.each do |checkin|%>
+ <%if checkin.checkin_time %>
+  <td align="center" width="" >has checked</td>
+  <td align="center" ><%=checkin.checkin_time.strftime("%Y-%m-%d %H:%M:%S")%></td>
+ <%else%>
+  <td align="center" width="">no check </td>
+  <td align="center">----</td>
+ <%end%>
+
+<%end
+end
+end
+%>
+<%else%>
+<td align='center' colspan='3'>NO Record.</td></tr>
+<%end%>
+</table>
+<div style="text-align:center;">
+<%if @checkins.present?%>
+<%=will_paginate @checkins ,:params => params%>
+<%end%>
+</div>
+</body>
+</html>

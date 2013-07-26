@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   end
   
   def index
-    if params[:id].present?
-    @user = User.find_by_id(params[:id]) 
+    if session[:user].present?
+    @user = User.find_by_id(session[:user]) 
     end
   end
 
@@ -22,13 +22,26 @@ class UsersController < ApplicationController
   end
   
   def checkin
+    time_now = Time.now
     @user = User.find_by_id(session[:user])
-    @user.is_arrive = 1
-    @user.checkin_time = Time.now
-    @user.save   
-    respond_to do |format|
-     format.html { redirect_to :action => 'index' }
-     format.js
+    @checkin = @user.checkins.last
+    if @checkin.present?
+    last_time = @checkin.checkin_time
+    if last_time.year >= time_now.year && last_time.month >= time_now.month && last_time.day > time_now.day
+     @checkin = Checkin.new
+     @checkin.user_id = session[:user]
+     @checkin.checkin_time = Time.now
+     @checkin.save
+    else
+     @notice = last_time
     end
+    else
+     @checkin = Checkin.new
+     @checkin.user_id = session[:user]
+     @checkin.checkin_time = Time.now
+     @checkin.save
+    end
+    render :text => @notice
+
   end
 end
